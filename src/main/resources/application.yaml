@@ -1,0 +1,25 @@
+server:
+  port: 9090
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:test_db;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: root
+    password: root
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+
+security:
+  jwt:
+    token:
+      secret-key: secret-sgm
+      expiration: 900000 #15 minutes duration by default: 15 minutes * 60 secondes * 1000 miliseconds
+
+user-controller:
+  signin: Authenticates user and returns its JWT token
+  signup: Creates user and returns it's JWT token
+  delete: Delete user by username
+  search: Search user by username
+  me: Returns current user's data
+
