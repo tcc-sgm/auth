@@ -8,12 +8,18 @@ import java.util.List;
 public class UserDTO {
 
     @ApiModelProperty(position = 0)
-    private String username;
+    private String name;
     @ApiModelProperty(position = 1)
-    private String email;
+    private String username;
     @ApiModelProperty(position = 2)
-    private String password;
+    private String cpf;
     @ApiModelProperty(position = 3)
+    private String phone;
+    @ApiModelProperty(position = 4)
+    private String email;
+    @ApiModelProperty(position = 5)
+    private String password;
+    @ApiModelProperty(position = 6)
     List<Role> roles;
 
     public UserDTO(User user) {
@@ -54,9 +60,36 @@ public class UserDTO {
         this.roles = roles;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
     public User toUser() {
         User user = new User();
+        user.setName(name);
         user.setUsername(username);
+        user.setCpf(cpf);
+        user.setPhone(phone);
         user.setEmail(email);
         user.setPassword(password);
         user.setRoles(roles);

@@ -1,5 +1,6 @@
 package br.com.sgm.auth.model;
 
+import java.util.Date;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -18,8 +19,20 @@ public class User {
     private Integer id;
 
     @Column(unique = true, nullable = false)
+    @Size(min = 3, max = 45, message = "Minimum name length: 3 Characters")
+    private String name;
+
+    @Column(unique = true, nullable = false)
     @Size(min = 4, max = 25, message = "Minimum username length: 4 Characters")
     private String username;
+
+    @Column(unique = true, nullable = false)
+    @Size(min = 13, max = 25, message = "Minimum cpf length: 13 Characters")
+    private String cpf;
+
+    @Size(min = 10)
+    @Column(nullable = true)
+    private String phone;
 
     @Column(unique = true, nullable = false)
     private String email;
@@ -69,5 +82,29 @@ public class User {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }
