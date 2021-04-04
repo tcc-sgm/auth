@@ -27,7 +27,7 @@ public class User {
     private String username;
 
     @Column(unique = true, nullable = false)
-    @Size(min = 13, max = 25, message = "Minimum cpf length: 13 Characters")
+    @Size(min = 11, max = 25, message = "Minimum cpf length: 11 Characters")
     private String cpf;
 
     @Size(min = 10)

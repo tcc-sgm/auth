@@ -36,7 +36,6 @@ public class SwaggerConfiguration {
                 .useDefaultResponseMessages(false)
                 .securitySchemes(Collections.singletonList(apiKey()))
                 .securityContexts(Collections.singletonList(securityContext()))
-                .tags(new Tag("Users", "Users Operations"))
                 .genericModelSubstitutes(Optional.class);
     }
     private ApiInfo metadata() {

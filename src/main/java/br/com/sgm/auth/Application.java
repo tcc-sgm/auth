@@ -32,7 +32,7 @@ public class Application implements CommandLineRunner {
     public void run(String... args) throws Exception {
         User admin = new User();
         admin.setName("Administrador");
-        admin.setCpf("03924077121");
+        admin.setCpf("05783219045");
         admin.setPhone("0619211223");
         admin.setUsername("admin");
         admin.setPassword("12345");
@@ -43,8 +43,8 @@ public class Application implements CommandLineRunner {
 
         User client = new User();
         client.setUsername("client");
-        client.setName("Administrador");
-        client.setCpf("03924077121");
+        client.setName("client");
+        client.setCpf("80037687050");
         client.setPhone("0619211223");
         client.setPassword("12345");
         client.setEmail("client@gmail.com");
@@ -53,8 +53,8 @@ public class Application implements CommandLineRunner {
         service.signup(client);
 
         User citizen = new User();
-        citizen.setName("Administrador");
-        citizen.setCpf("03924077121");
+        citizen.setName("citizen");
+        citizen.setCpf("03924066167");
         citizen.setPhone("0619211223");
         citizen.setUsername("citizen");
         citizen.setPassword("12345");
