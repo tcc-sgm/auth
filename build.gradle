@@ -40,3 +40,11 @@ dependencyManagement {
 test {
 	useJUnitPlatform()
 }
+
+bootJar {
+    archivesBaseName = rootProject.name
+}
+
+bootRun {
+    systemProperties = System.properties
+}

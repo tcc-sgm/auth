@@ -1,7 +1,7 @@
 package br.com.sgm.auth.controller;
 
 import br.com.sgm.auth.exceptions.CustomException;
-import br.com.sgm.auth.model.User;
+import br.com.sgm.auth.model.dto.LoginRequestDTO;
 import br.com.sgm.auth.model.dto.UserDTO;
 import br.com.sgm.auth.service.UserService;
 import io.swagger.annotations.Api;
@@ -14,14 +14,12 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -37,11 +35,9 @@ public class UserController {
     @ApiResponses(value = {
             @ApiResponse(code = 422, message = "Invalid username/passowrd")
     })
-    public ResponseEntity<?> login(
-            @ApiParam("username") @RequestParam String username,
-            @ApiParam("password") @RequestParam String password) {
+    public ResponseEntity<?> login(@RequestBody LoginRequestDTO login) {
         try {
-            String token = service.signin(username, password);
+            String token = service.signin(login.getUsername(), login.getPassword());
             return ResponseEntity.ok().body(token);
         } catch (CustomException e) {
             return ResponseEntity.unprocessableEntity().build();
