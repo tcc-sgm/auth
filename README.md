@@ -22,7 +22,7 @@ Membros:
 ### Login
 
 ```http
-POST /users/signin/?password=1234&username=1234
+POST /users/signin
 ```
 	curl -X POST "http://localhost:9090/users/signin?password=1234&username=1234" -H "accept: */*"
 			
