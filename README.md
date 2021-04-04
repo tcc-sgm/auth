@@ -44,6 +44,9 @@ POST /users/signup
 			
 | Parameter | Type | Description |
 | :--- | :--- | :--- |
+| `Name` | `string` | **Required**. Usar fullnome |
+| `CPF` | `string` | **Required**. User CPF |
+| `Phone` | `string` | **Required**. User telephone |
 | `username` | `string` | **Required**. username |
 | `password` | `string` | **Required**. senha |
 | `email` | `string` | **Required**. email  |
