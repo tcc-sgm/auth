@@ -21,6 +21,8 @@ Membros:
 
 ### Login
 
+`OPEN`
+
 ```http
 POST /users/signin
 ```
@@ -32,6 +34,8 @@ POST /users/signin
 | `password` | `string` | **Required**. password |
 
 ### Cadastrar
+
+`OPEN`
 
 ```http
 POST /users/signup
@@ -49,12 +53,16 @@ POST /users/signup
 
 ### Refresh
 
+`OPEN`
+
 ```http
 GET /users/refresh
 ```
 	curl -X GET "http://localhost:9090/users/refresh" -H "accept: */*"
 			
-### Deletar usuário
+### Deletar usuário 
+
+`ROLE_ADMIN`
 
 ```http
 DELETE /users/{username}
@@ -66,6 +74,8 @@ DELETE /users/{username}
 | `username` | `string` | **Required**. User username |
 
 ### Recupera Usuario por Login
+
+`ROLE_ADMIN`
 
 ```http
 POST /users/{userName}
