@@ -4,13 +4,15 @@ Membros:
  - [Jonathan Cabral](mailto:dev.jonathancabral@gmail.com)
  - [André Graciano](mailto:dev.jonathancabral@gmail.com)
 
-## Build com sem Docker
+## Build sem Docker
  
     gradlew clean build
 
 ## build com docker
 
-    docker run -it ** .... gradle build
+    docker build -t sgm/auth -f .\Dockerfile .
+
+    docker run -it -p 9090:9090 sgm/auth
 
 ## Documentação da API SWAGGER
 	http://localhost:9090/swagger-ui.html#/
