@@ -78,7 +78,6 @@ public class UserController {
         }
     }
 
-    @GetMapping("/{username}")
     @Secured({"ROLE_ADMIN"})
     @ApiOperation(value = "${user-controller.search}", authorizations = {@Authorization(value = "apikey")})
     @ApiResponses(value = {
@@ -106,6 +105,4 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-
-
 }
