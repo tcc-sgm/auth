@@ -4,13 +4,15 @@ Membros:
  - [Jonathan Cabral](mailto:dev.jonathancabral@gmail.com)
  - [André Graciano](mailto:dev.jonathancabral@gmail.com)
 
-## Build com sem Docker
+## Build sem Docker
  
     gradlew clean build
 
 ## build com docker
 
-    docker run -it ** .... gradle build
+    docker build -t sgm/auth -f .\Dockerfile .
+
+    docker run -it -p 9090:9090 sgm/auth
 
 ## Documentação da API SWAGGER
 	http://localhost:9090/swagger-ui.html#/
@@ -19,8 +21,10 @@ Membros:
 
 ### Login
 
+`OPEN`
+
 ```http
-POST /users/signin/?password=1234&username=1234
+POST /users/signin
 ```
 	curl -X POST "http://localhost:9090/users/signin?password=1234&username=1234" -H "accept: */*"
 			
@@ -31,6 +35,8 @@ POST /users/signin/?password=1234&username=1234
 
 ### Cadastrar
 
+`OPEN`
+
 ```http
 POST /users/signup
 ```
@@ -38,6 +44,9 @@ POST /users/signup
 			
 | Parameter | Type | Description |
 | :--- | :--- | :--- |
+| `Name` | `string` | **Required**. Usar fullnome |
+| `CPF` | `string` | **Required**. User CPF |
+| `Phone` | `string` | **Required**. User telephone |
 | `username` | `string` | **Required**. username |
 | `password` | `string` | **Required**. senha |
 | `email` | `string` | **Required**. email  |
@@ -47,12 +56,16 @@ POST /users/signup
 
 ### Refresh
 
+`OPEN`
+
 ```http
 GET /users/refresh
 ```
 	curl -X GET "http://localhost:9090/users/refresh" -H "accept: */*"
 			
-### Deletar usuário
+### Deletar usuário 
+
+`ROLE_ADMIN`
 
 ```http
 DELETE /users/{username}
@@ -64,6 +77,8 @@ DELETE /users/{username}
 | `username` | `string` | **Required**. User username |
 
 ### Recupera Usuario por Login
+
+`ROLE_ADMIN`
 
 ```http
 POST /users/{userName}
