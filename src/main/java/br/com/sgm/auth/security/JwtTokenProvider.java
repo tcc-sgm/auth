@@ -7,6 +7,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;
@@ -45,6 +46,7 @@ public class JwtTokenProvider {
 
     public String createToken(String username, List<Role> roles) {
         Claims claims = Jwts.claims().setSubject(username);
+        List<SimpleGrantedAuthority> sga = new ArrayList<>();
         claims.put("auth",
                 roles.stream()
                         .map(r -> new SimpleGrantedAuthority(r.getAuthority()))
