@@ -22,10 +22,13 @@ public class UserDTO {
     @ApiModelProperty(position = 6)
     List<Role> roles;
 
+    public UserDTO() { }
+    
     public UserDTO(User user) {
         this.username = user.getUsername();
         this.email = user.getEmail();
         this.roles = user.getRoles();
+        this.cpf = user.getCpf();
     }
 
     public String getUsername() {

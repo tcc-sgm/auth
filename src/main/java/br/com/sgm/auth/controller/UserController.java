@@ -1,16 +1,7 @@
 package br.com.sgm.auth.controller;
 
-import br.com.sgm.auth.exceptions.CustomException;
-import br.com.sgm.auth.model.dto.LoginRequestDTO;
-import br.com.sgm.auth.model.dto.UserDTO;
-import br.com.sgm.auth.service.UserService;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
-import io.swagger.annotations.Authorization;
 import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -22,6 +13,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import br.com.sgm.auth.exceptions.CustomException;
+import br.com.sgm.auth.model.dto.LoginRequestDTO;
+import br.com.sgm.auth.model.dto.UserDTO;
+import br.com.sgm.auth.model.dto.UserTokenDTO;
+import br.com.sgm.auth.service.UserService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.Authorization;
 
 @CrossOrigin("*")
 @RestController
@@ -39,8 +42,8 @@ public class UserController {
     })
     public ResponseEntity<?> login(@RequestBody LoginRequestDTO login) {
         try {
-            String token = service.signin(login.getUsername(), login.getPassword());
-            return ResponseEntity.ok().body(token);
+        	UserTokenDTO dto = service.signin(login.getUsername(), login.getPassword());
+            return ResponseEntity.ok().body(dto);
         } catch (CustomException e) {
             return ResponseEntity.unprocessableEntity().build();
         }

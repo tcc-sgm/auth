@@ -1,18 +1,18 @@
 package br.com.sgm.auth.service;
 
-import br.com.sgm.auth.exceptions.CustomException;
-import br.com.sgm.auth.model.User;
-import br.com.sgm.auth.model.dto.UserDTO;
-import br.com.sgm.auth.repository.UserRepository;
-import br.com.sgm.auth.security.JwtTokenProvider;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import br.com.sgm.auth.exceptions.CustomException;
+import br.com.sgm.auth.model.User;
+import br.com.sgm.auth.model.dto.UserDTO;
+import br.com.sgm.auth.model.dto.UserTokenDTO;
+import br.com.sgm.auth.repository.UserRepository;
+import br.com.sgm.auth.security.JwtTokenProvider;
 
 @Service
 public class UserService {
@@ -35,10 +35,14 @@ public class UserService {
         return repository.save(user);
     }
 
-    public String signin(String username, String password) throws CustomException {
+    public UserTokenDTO signin(String username, String password) throws CustomException {
         try {
             authManager.authenticate(new UsernamePasswordAuthenticationToken(username, password));
-            return jwtProvider.createToken(username, repository.findByUsername(username).getRoles());
+            UserTokenDTO dto = new UserTokenDTO();
+            User user = repository.findByUsername(username);
+            dto.setToken(jwtProvider.createToken(username, user.getRoles()));
+            dto.setUser(new UserDTO(user));
+            return dto;
         } catch (CustomException e) {
             throw new CustomException("Invalid Username/Password", HttpStatus.UNPROCESSABLE_ENTITY);
         }
