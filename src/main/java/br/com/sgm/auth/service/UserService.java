@@ -67,7 +67,7 @@ public class UserService {
         if(user != null)
             return new UserDTO(user);
         else
-            throw new CustomException("Username is alredy in use", HttpStatus.UNPROCESSABLE_ENTITY);
+            throw new CustomException("Username is already in use", HttpStatus.UNPROCESSABLE_ENTITY);
     }
 
     public String refresh(String username) {

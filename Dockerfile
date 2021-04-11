@@ -2,7 +2,7 @@ FROM gradle:6.8.3-jdk8 AS BUILD
 
 COPY --chown=gradle:gradle . /home/gradle/src
 WORKDIR /home/gradle/src
-RUN gradle build --no-daemon 
+RUN gradle build -x test --no-daemon 
 
 FROM openjdk:8-jre-slim
 
@@ -16,6 +16,6 @@ ENTRYPOINT ["java", "-XX:+UnlockExperimentalVMOptions", "-XX:+UseCGroupMemoryLim
 
 
 LABEL maintainer="SGM - Sistema de Gestão Integrada Municipal" \
-      org.label-schema.name="SGM" \
+      org.label-schema.name="AUTH" \
       org.label-schema.vcs-url=https://github.com/tcc-sgm/auth \
       org.label.schema.build-date=$DATA_TO_BUILD

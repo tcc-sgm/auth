@@ -2,6 +2,7 @@ package br.com.sgm.auth.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import br.com.sgm.auth.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
@@ -38,7 +39,8 @@ public class UserController {
     @PostMapping("/signin")
     @ApiOperation(value = "${user-controller.signin}")
     @ApiResponses(value = {
-            @ApiResponse(code = 422, message = "Invalid username/passowrd")
+            @ApiResponse(code = 422, message = "Invalid username/passowrd"),
+            @ApiResponse(code = 200, message = "Acesso Realizado com sucesso", response = UserTokenDTO.class)
     })
     public ResponseEntity<?> login(@RequestBody LoginRequestDTO login) {
         try {
@@ -52,6 +54,7 @@ public class UserController {
     @PostMapping("/signup")
     @ApiOperation(value = "${user-controller.signup}")
     @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "User Created", response = String.class),
             @ApiResponse(code = 400, message = "Something went wrong"),
             @ApiResponse(code = 403, message = "Access Denied"),
             @ApiResponse(code = 422, message = "Username is already in user")
@@ -83,9 +86,11 @@ public class UserController {
         }
     }
 
-    @Secured({"ROLE_ADMIN"})
+    @GetMapping("/{username}")
+    @Secured({"ROLE_ADMIN", "ROLE_USER"})
     @ApiOperation(value = "${user-controller.search}", authorizations = {@Authorization(value = "apikey")})
     @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "User found", response = UserDTO.class),
             @ApiResponse(code = 400, message = "Something went wrong"),
             @ApiResponse(code = 403, message = "Access Denied"),
             @ApiResponse(code = 404, message = "User not found"),
@@ -101,6 +106,12 @@ public class UserController {
     }
 
     @GetMapping("/refresh")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Token Refreshed", response = String.class),
+            @ApiResponse(code = 400, message = "Something went wrong"),
+            @ApiResponse(code = 403, message = "Access Denied"),
+            @ApiResponse(code = 500, message = "Expired or invalid token")
+    })
     @Secured({"ROLE_ADMIN","ROLE_USER", "ROLE_CITIZEN"})
     public ResponseEntity<?> refresh(HttpServletRequest req) {
         try {
