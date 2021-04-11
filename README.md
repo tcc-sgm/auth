@@ -12,7 +12,7 @@ Membros:
 
     docker build -t sgm/auth -f .\Dockerfile .
 
-    docker run -it -p 9090:9090 sgm/auth
+    docker run -d -p 9090:9090 sgm/auth
 
 ## Documentação da API SWAGGER
 	http://localhost:9090/swagger-ui.html#/
